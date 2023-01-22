@@ -3,6 +3,9 @@ import requests
 import streamlit as st
 from streamlit_lottie import st_lottie 
 import snscrape.modules.twitter as snt
+import pymongo
+from pymongo import MongoClient
+client = MongoClient("localhost", 27017) 
 import pandas as pd
 import datetime
 from PIL import Image
@@ -67,6 +70,10 @@ if s:
     show.to_csv('tweet_data.csv',mode='w')
     df=pd.read_csv("tweet_data.csv",index_col=[0])
     st.write(df)
+    data=df.to_dict(orient="records")
+    db=client["ML"]
+    db.twitter.insert_many({Seachkey:x,date:datetime.date.today()})
+    db.twitter.insert_many(data)
     def convert_df(show):
         return show.to_csv(index=False).encode('utf-8')
     csv=convert_df(show)
@@ -78,7 +85,6 @@ if s:
         key='download-csv'
     )
     
-    data=df.to_dict(orient="records")
     jsf=json.dumps(data)
     st.download_button(
         label="Click to Download the data in json format:arrow_down:",
