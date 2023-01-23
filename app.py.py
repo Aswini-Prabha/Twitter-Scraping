@@ -16,7 +16,7 @@ st.title(" :large_blue_circle: Twitter Scraping :large_blue_circle:")
 def load_lottiefile(filepath:str):
     with open(filepath,"r")as f:
         return json.load(f)
-lottie_s=load_lottiefile(r"C:\Users\Aswini Praba\Desktop\simple_streamlit_app\scrape.json")
+lottie_s=load_lottiefile(r"C:\Users\Aswini Praba\Desktop\python\scrape.json")
 
 with st.container():
     st.write("---")
