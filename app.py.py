@@ -13,11 +13,12 @@ from PIL import Image
 st.set_page_config(page_title="Twitter data scraping webpage",page_icon=":sunglasses:",layout="wide")
 st.title(" :large_blue_circle: Twitter Scraping :large_blue_circle:")
 
-def load_lottiefile(filepath:str):
-    with open(filepath,"r")as f:
-        return json.load(f)
-lottie_s=load_lottiefile(r"C:\Users\Aswini Praba\Desktop\python\scrape.json")
-
+def load_lottieurl(url):
+    r = requests.get(url)
+    if r.status_code!=200:
+        return None
+    return r.json()    
+lottie_s=load_lottieurl(r"https://assets7.lottiefiles.com/packages/lf20_DbCYKfCXBZ.json")
 with st.container():
     st.write("---")
     left_column,right_column=st.columns(2)
@@ -48,7 +49,9 @@ with st.container():
             height=500,
             width=None,
             key=None
-)
+            )
+
+
 
 if s:
     st.write('please wait for few seconds.....')
